@@ -2,7 +2,6 @@ package com.example.uino.activityexample;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     public String extras = "";
     EditText firstName;
     EditText lastName;
-    SharedPreferences storage;
+   // SharedPreferences storage;
 
 
     @Override
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         firstName = (EditText) findViewById(R.id.editText);
         lastName = (EditText) findViewById(R.id.editText2);
         extras = firstName.getText().toString() + " " + lastName.getText().toString();
-        storage = getSharedPreferences("storage", MODE_PRIVATE);
+        //storage = getSharedPreferences("storage", MODE_PRIVATE);
 
 
     }
@@ -35,9 +34,10 @@ public class MainActivity extends AppCompatActivity {
                 && lastName.getText().toString().equals("Klindic")) {
             extras = firstName.getText().toString() + " " + lastName.getText().toString();
             final Intent intent = new Intent(this, SecondActivity.class);
-            SharedPreferences.Editor edit = storage.edit();
+            /*SharedPreferences.Editor edit = storage.edit();
             edit.putString("extra", extras);
-            edit.apply();
+            edit.apply();*/
+            intent.putExtra("extra",extras);
             final ProgressDialog pd = new ProgressDialog(this);
             pd.setMessage("Loading...");
             pd.show();
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         Thread.sleep(4000);
                         pd.dismiss();
                         startActivity(intent);
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
